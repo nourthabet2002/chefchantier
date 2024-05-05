@@ -113,14 +113,14 @@ export default class Body extends Component {
               <div className="card-body">
                 <div className="tab-content p-0">
                   {/* Morris chart - Sales */}
-                  <Router>
+                  {/* <Router>
                   <Routes>
                         <Route path="/ajouteremploye" element={<Ajouteremploye />} />
                          <Route path="/surrprimer" element={<Surrprimer/>} />
                          <Route path="/modifier" element={<Modifier/>} />
                          <Route path="/consulter" element={<Consulter/>} />
                         </Routes>
-                 </Router>
+                 </Router> */}
                   <div className="chart tab-pane active" id="revenue-chart" style={{position: 'relative', height: 300}}>
                     <canvas id="revenue-chart-canvas" height={300} style={{height: 300}} />
                   </div>
