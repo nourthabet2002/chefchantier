@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./Header";
 import Menu from "./Menu";
 import Milieu from "./Milieu";
-import Ajouteremploye from './Ajouteremploye';
+// import Ajouteremploye from './Ajouteremploye';
 import Modifier from './Modifier';
 import Surrprimer from'./Surrprimer';
 import Consulter from'./Consulter';
@@ -19,7 +19,7 @@ function App() {
        <Routes>
        <Route path="/" element={<Login />} />
        <Route path="/menu_and_milieu" element={<div><Menu /><Milieu /></div>} />
-        <Route path="/ajouteremploye" element={<Ajouteremploye />} />
+        {/* <Route path="/ajouteremploye" element={<Ajouteremploye />} /> */}
           <Route path="/surrprimer" element={<Surrprimer/>} />
             <Route path="/modifier" element={<Modifier/>} />
              <Route path="/consulter" element={<Consulter/>} />

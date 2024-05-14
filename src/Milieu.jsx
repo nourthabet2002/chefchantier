@@ -4,8 +4,47 @@ import Ajouteremploye from './Ajouteremploye';
 import Modifier from './Modifier';
 import Surrprimer from'./Surrprimer';
 import Consulter from'./Consulter';
+import axios from 'axios';
 export default class Body extends Component {
+  state = {
+    employeeCount: null
+  };
+  state = {
+    inProgressProjectsCount: null
+  };
+  state = {
+    completedProjectsCount: null
+  };
+  state = {
+    pausedProjectsCount: null
+  };
+
+  async componentDidMount() {
+    try {
+      const employeeResponse = await axios.get('http://localhost:7000/employees/count');
+      const inProgressProjectResponse = await axios.get('http://localhost:7000/projects/inprogress/count');
+      const completedProjectResponse = await axios.get('http://localhost:7000/projects/completed/count');
+      const pausedProjectResponse = await axios.get('http://localhost:7000/projects/paused/count');
+      this.setState({ 
+        employeeCount: employeeResponse.data.count,
+        inProgressProjectsCount: inProgressProjectResponse.data.count,
+        completedProjectsCount: completedProjectResponse.data.count,
+        pausedProjectsCount:   pausedProjectResponse.data.count
+      });
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      this.setState({ 
+        employeeCount: -1,
+        inProgressProjectsCount: -1,
+        completedProjectsCount: -1,
+        pausedProjectsCount: -1
+      });
+    }
+  }
+  
   render() {
+    // const { employeeCount } = this.state;
+    const {employeeCount, inProgressProjectsCount, completedProjectsCount, pausedProjectsCount } = this.state;
     return (
         
       <div>{/* Content Wrapper. Contains page content */}
@@ -34,41 +73,60 @@ export default class Body extends Component {
         <div className="row">
           <div className="col-lg-3 col-6">
             {/* small box */}
-            <div className="small-box bg-info">
+            {/* <div className="small-box bg-info">
               <div className="inner">
                 <h3>150</h3>
-                <p>employés</p>
+                <p> Nombre employés</p>
               </div>
               <div className="icon">
-                <i className="ion ion-bag" />
+                <i className="ion ion-person-add" />
               </div>
               
-            </div>
+            </div> */}
+            <div className="small-box bg-info">
+          <div className="inner">
+          <h3>{employeeCount !== null ? employeeCount : 'Loading...'}</h3>
+            <p>Nombre employés</p>
+          </div>
+          <div className="icon">
+            <i className="ion ion-person-add" />
+          </div>
+        </div>
           </div>
           {/* ./col */}
           <div className="col-lg-3 col-6">
             {/* small box */}
-            <div className="small-box bg-success">
+            {/* <div className="small-box bg-success">
               <div className="inner">
                 <h3>53<sup style={{fontSize: 20}}>%</sup></h3>
-                <p>chef chantier</p>
+                <p>Nombre de chantier en cours</p>
               </div>
               <div className="icon">
-                <i className="ion ion-stats-bars" />
+                <i className="ion ion-pie-graph" />
               </div>
              
-            </div>
+            </div> */}
+            <div className="small-box bg-info">
+          <div className="inner">
+            <h3>{inProgressProjectsCount !== null ? inProgressProjectsCount : 'Loading...'}</h3>
+            <p>Nombre de projets en cours</p>
+          </div>
+          <div className="icon">
+            <i className="ion ion-stats-bars" />
+          </div>
+        </div>
           </div>
           {/* ./col */}
           <div className="col-lg-3 col-6">
             {/* small box */}
             <div className="small-box bg-warning">
+            <h3>{completedProjectsCount !== null ? completedProjectsCount : 'Loading...'}</h3>
               <div className="inner">
-                <h3>44</h3>
-                <p>User Registrations</p>
+                
+                <p>nombre  des chantiers terminés</p>
               </div>
               <div className="icon">
-                <i className="ion ion-person-add" />
+                <i className="ion ion-pie-graph" />
               </div>
               
             </div>
@@ -78,8 +136,8 @@ export default class Body extends Component {
             {/* small box */}
             <div className="small-box bg-danger">
               <div className="inner">
-                <h3>65</h3>
-                <p>Unique Visitors</p>
+              <h3>{ pausedProjectsCount !== null ?  pausedProjectsCount : 'Loading...'}</h3>
+                <p>nombre des chantiers en pause</p>
               </div>
               <div className="icon">
                 <i className="ion ion-pie-graph" />
