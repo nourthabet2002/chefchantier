@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import './App.css'
 
 function Login() {
     const navigate = useNavigate(); // Using navigate from useNavigate hook
@@ -27,13 +28,13 @@ function Login() {
 
     return (
         <div className="login-container">
-            <h1 className="login-title">Login</h1>
+            <h1 className="login-title">Se connecter</h1>
             <form onSubmit={submit} className="login-form">
                 <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" className="login-input" />
                 <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" className="login-input" />
                 <button type="submit" className="login-submit-btn">Login</button>
             </form>
-            <p className="login-or">OR</p>
+            
             {/* <Link to="/Signup" className="login-signup-link">Signup Page</Link> */}
         </div>
     );

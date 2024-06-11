@@ -423,11 +423,16 @@ const ProjetComponent = () => {
   const handleAffecterEmp = async () => {
     try {
       // Send request to assign employee to the project
-      const response = await axios.post('http://localhost:7000/affecter/emp', {
-        projectId: selectedProject._id,
-        employeeId: selectedEmployee
+      const response = await axios.post('http://localhost:7000/affemploye/add', {
+        projetId: selectedProject._id,
+        EmployeeId: selectedEmployee,
+        date: selectedProject.date  // Use the project date or any specific date as required
       });
       console.log('Employee assigned:', response.data);
+
+      // Fetch the updated project details
+      const updatedProjectResponse = await axios.get(`http://localhost:7000/projet/${selectedProject._id}`);
+      setSelectedProject(updatedProjectResponse.data);
     } catch (error) {
       console.error('Error assigning employee:', error);
     }
@@ -449,6 +454,7 @@ const ProjetComponent = () => {
           <tr>
             <th>Date</th>
             <th>Lieu</th>
+            <th>Catégorie</th>
             <th>Etat</th>
             <th>Chef Chantier</th>
             <th>Action</th>
@@ -458,7 +464,8 @@ const ProjetComponent = () => {
           {projets.map(projet => (
             <tr key={projet._id}>
               <td>{projet.date}</td>
-              <td>{projet.lieu}</td>
+              <td>{projet.adresse}</td>
+              <td>{projet.categorieId}</td>
               <td>{projet.etat}</td>
               <td>{projet.chefchantier}</td>
               <td>
@@ -474,7 +481,7 @@ const ProjetComponent = () => {
         <div>
           <h2>Selected Project Details</h2>
           <p>Date: {selectedProject.date}</p>
-          <p>Lieu: {selectedProject.lieu}</p>
+          <p>Lieu: {selectedProject.adresse}</p>
           <p>Etat: {selectedProject.etat}</p>
           <p>Chef Chantier: {selectedProject.chefchantier}</p>
 
@@ -486,6 +493,17 @@ const ProjetComponent = () => {
             ))}
           </select>
           <button className="btn" onClick={handleAffecterEmp}>Affecter Emp</button>
+
+          {selectedProject.employees && (
+            <div>
+              <h4>Assigned Employees</h4>
+              <ul>
+                {selectedProject.employees.map(emp => (
+                  <li key={emp._id}>{emp.nom}</li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
       )}
 
@@ -508,6 +526,12 @@ const ProjetComponent = () => {
 };
 
 export default ProjetComponent;
+
+
+
+
+
+
 
 
 

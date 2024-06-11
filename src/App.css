@@ -77,3 +77,24 @@
   border-radius: 22px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 } */
+.login-container {
+
+  padding: 40px;
+  border:  5px solid black;
+  width: 500px;
+  margin-top: 200px;
+  margin: 200px auto;
+}.login-form form input{
+  margin: 5px;
+  width: 400px;
+}.login-submit-btn {
+ width: 70px;
+  background-color: #2617f7fa;
+  color: #f9f9f9;
+  align-items: center;
+}.login-form{
+  display: flex;
+  flex-direction: column;
+}.login-title{
+  text-align: center;
+}
